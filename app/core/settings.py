@@ -14,7 +14,7 @@ from pydantic import (
 
 class PostgresSettings(BaseModel):
     user: str = "admin"
-    password: str = "admin"
+    password: str
     host: str = "postgres"
     port: int = 5432
     db: str = "db"
@@ -25,7 +25,7 @@ class PostgresSettings(BaseModel):
     max_overflow: int = 20
     pool_recycle: int = 3600
 
-    psql_dsn: PostgresDsn = Field(..., env="")
+    dsn: PostgresDsn = Field(..., env="")
 
 
 class RedisSettings(BaseModel):
@@ -34,7 +34,7 @@ class RedisSettings(BaseModel):
     db: int = 0
     password: str | None = None
 
-    redis_dsn: RedisDsn = Field(..., env="")
+    dsn: RedisDsn = Field(..., env="")
 
 
 
@@ -45,12 +45,12 @@ class MongoSettings(BaseModel):
     password: str
     db: str = "db"
 
-    mongo_dsn: MongoDsn = Field(..., env="")
+    dsn: MongoDsn = Field(..., env="")
 
 
 
 class KafkaSettings(BaseModel):
-    bootstrap_servers: KafkaDsn = Field(..., env="") 
+    dsn: KafkaDsn = Field(..., env="") 
 
 
 class JWTSettings(BaseModel):

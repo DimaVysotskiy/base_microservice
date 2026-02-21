@@ -72,6 +72,7 @@ class PostgresSessionManager:
 postgres_manager = PostgresSessionManager()
 
 
-async def get_psql_db() -> AsyncGenerator[AsyncSession, None]:
+# Ф-ция для FastAPI dependency
+async def get_psql() -> AsyncGenerator[AsyncSession, None]:
     async for session in postgres_manager.get_session():
         yield session

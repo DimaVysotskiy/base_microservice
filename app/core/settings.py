@@ -25,7 +25,7 @@ class PostgresSettings(BaseModel):
     max_overflow: int = 20
     pool_recycle: int = 3600
 
-    dsn: PostgresDsn = Field(..., env="")
+    dsn: PostgresDsn = ...
 
 
 class RedisSettings(BaseModel):
@@ -34,7 +34,7 @@ class RedisSettings(BaseModel):
     db: int = 0
     password: str | None = None
 
-    dsn: RedisDsn = Field(..., env="")
+    dsn: RedisDsn = ...
 
 
 
@@ -45,12 +45,12 @@ class MongoSettings(BaseModel):
     password: str
     db: str = "db"
 
-    dsn: MongoDsn = Field(..., env="")
+    dsn: MongoDsn = ...
 
 
 
 class KafkaSettings(BaseModel):
-    dsn: KafkaDsn = Field(..., env="") 
+    dsn: KafkaDsn = ...
 
 
 class JWTSettings(BaseModel):
@@ -65,6 +65,9 @@ class Settings(BaseSettings):
     model_config = SettingsConfigDict(
         env_file=".env",
         env_file_encoding="utf-8",
+        env_nested_delimiter="__",  # В .env можно писать POSTGRES__USER=admin , приставки берутся по названию полей в Settings
+        case_sensitive=False,
+        extra="ignore",
     )
 
     # FastAPI server 

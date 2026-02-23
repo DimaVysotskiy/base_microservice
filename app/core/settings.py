@@ -73,6 +73,7 @@ class Settings(BaseSettings):
     # FastAPI server 
     host: str = "0.0.0.0"
     port: int = 8080
+    origins: list[str]
 
     # Other services
     postgres: PostgresSettings = PostgresSettings()
